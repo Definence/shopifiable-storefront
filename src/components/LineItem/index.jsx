@@ -1,14 +1,20 @@
 import React, {Component} from 'react'
 
+import './styles.css'
+
 class LineItem extends Component {
   decrementQuantity = (lineItemId) => {
-    const updatedQuantity = this.props.line_item.quantity - 1
-    this.props.updateQuantityInCart(lineItemId, updatedQuantity)
+    const { line_item, updateQuantityInCart } = this.props
+    const updatedQuantity = line_item.quantity - 1
+
+    updateQuantityInCart(lineItemId, updatedQuantity)
   }
 
   incrementQuantity = (lineItemId) => {
-    const updatedQuantity = this.props.line_item.quantity + 1
-    this.props.updateQuantityInCart(lineItemId, updatedQuantity)
+    const { line_item, updateQuantityInCart } = this.props
+    const updatedQuantity = line_item.quantity + 1
+
+    updateQuantityInCart(lineItemId, updatedQuantity)
   }
 
   render() {

@@ -1,15 +1,16 @@
 import React, {Component} from 'react'
 
-import VariantSelector from './VariantSelector'
+import VariantSelector from '../VariantSelector'
+import './styles.css'
 
 class Product extends Component {
   constructor(props) {
     super(props)
-    let defaultOptionValues = {}
-    this.props.product.options.forEach((selector) => {
-      defaultOptionValues[selector.name] = selector.values[0].value
+    const selectedOptions = {}
+    props.product.options.forEach((selector) => {
+      selectedOptions[selector.name] = selector.values[0].value
     })
-    this.state = { selectedOptions: defaultOptionValues }
+    this.state = { selectedOptions }
   }
 
   findImage = (images, variantId) => {
@@ -41,27 +42,29 @@ class Product extends Component {
     const variantImage = this.state.selectedVariantImage || this.props.product.images[0]
     const variant = this.state.selectedVariant || this.props.product.variants[0]
     const variantQuantity = this.state.selectedVariantQuantity || 1
-    const buildVariantOpts = this.props.product.options.map((option) => {
-      return (
-        <VariantSelector
-          handleOptionChange={this.handleOptionChange}
-          key={option.id.toString()}
-          option={option}
-        />
-      )
-    })
+
+    const buildVariantOpts = this.props.product.options.map((option) => (
+      <VariantSelector
+        handleOptionChange={this.handleOptionChange}
+        key={option.id.toString()}
+        option={option}
+      />
+    ))
 
     return (
       <div className="Product">
         {this.props.product.images.length ? <img src={variantImage.src} alt={`${this.props.product.title} product shot`}/> : null}
-        <h5 className="Product__title">{this.props.product.title}</h5>
-        <span className="Product__price">${variant.price}</span>
+        <h5>{this.props.product.title}</h5>
+        <span>${variant.price}</span>
+        <br />
         {buildVariantOpts}
-        <label className="Product__option">
+        <br />
+        <label>
           Quantity
           <input min="1" type="number" defaultValue={variantQuantity} onChange={this.handleQuantityChange}></input>
         </label>
-        <button className="Product__buy button" onClick={() => this.props.addVariantToCart(variant.id, variantQuantity)}>Add to Cart</button>
+
+        <button onClick={() => this.props.addVariantToCart(variant.id, variantQuantity)}>Add to Cart</button>
       </div>
     )
   }

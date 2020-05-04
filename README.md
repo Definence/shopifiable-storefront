@@ -1,6 +1,6 @@
 ## Configuring
 
-Open up `src/index.js` and update the `domain` and `storefrontAccessToken`:
+Open `src/index.js` and update the `domain` and `storefrontAccessToken`:
 
 ```js
 const client = Client.buildClient({

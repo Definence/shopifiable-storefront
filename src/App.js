@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-import Products from './components/Products'
 import Cart from './components/Cart'
+import Products from './components/Products'
+import './App.css'
 
-class App extends Component {
+class App extends PureComponent {
   constructor() {
     super()
     this.state = {
@@ -16,25 +17,13 @@ class App extends Component {
 
   componentDidMount() {
     this.props.client.checkout.create()
-      .then((res) => {
-        this.setState({
-          checkout: res,
-        })
-      })
+      .then((res) => this.setState({ checkout: res }))
 
     this.props.client.product.fetchAll()
-      .then((res) => {
-        this.setState({
-          products: res,
-        })
-      })
+      .then((res) => this.setState({ products: res }))
 
     this.props.client.shop.fetchInfo()
-      .then((res) => {
-        this.setState({
-          shop: res,
-        })
-      })
+      .then((res) => this.setState({ shop: res }))
   }
 
   addVariantToCart = (variantId, quantity) => {

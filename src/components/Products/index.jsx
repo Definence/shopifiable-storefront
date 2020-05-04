@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-import Product from './Product'
+import Product from '../Product'
+import './styles.css'
 
-class Products extends Component {
+class Products extends PureComponent {
   render() {
     const products = this.props.products.map((product) => (
       <Product
@@ -14,7 +15,7 @@ class Products extends Component {
     ))
 
     return (
-      <div className="Product-wrapper">
+      <div className="Products">
         {products}
       </div>
     )

@@ -1,16 +1,10 @@
 import React, {Component} from 'react'
 
-import LineItem from './LineItem'
+import LineItem from '../LineItem'
+import './styles.css'
 
 class Cart extends Component {
-  constructor(props) {
-    super(props)
-    this.openCheckout = this.openCheckout.bind(this)
-  }
-
-  openCheckout() {
-    window.open(this.props.checkout.webUrl)
-  }
+  openCheckout = () => window.open(this.props.checkout.webUrl)
 
   render() {
     const line_items = this.props.checkout.lineItems.map((line_item) => (

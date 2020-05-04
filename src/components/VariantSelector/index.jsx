@@ -4,7 +4,6 @@ class VariantSelector extends Component {
   render() {
     return (
       <select
-        className="Product__option"
         name={this.props.option.name}
         key={this.props.option.name}
         onChange={this.props.handleOptionChange}
