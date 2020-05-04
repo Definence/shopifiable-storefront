@@ -39,11 +39,12 @@ class Product extends Component {
   handleQuantityChange = (event) => this.setState({ selectedVariantQuantity: event.target.value })
 
   render() {
-    const variantImage = this.state.selectedVariantImage || this.props.product.images[0]
-    const variant = this.state.selectedVariant || this.props.product.variants[0]
+    const { product } = this.props
+    const variantImage = this.state.selectedVariantImage || product.images[0]
+    const variant = this.state.selectedVariant || product.variants[0]
     const variantQuantity = this.state.selectedVariantQuantity || 1
 
-    const buildVariantOpts = this.props.product.options.map((option) => (
+    const buildVariantOpts = product.options.map((option) => (
       <VariantSelector
         handleOptionChange={this.handleOptionChange}
         key={option.id.toString()}
@@ -53,8 +54,8 @@ class Product extends Component {
 
     return (
       <div className="Product">
-        {this.props.product.images.length ? <img src={variantImage.src} alt={`${this.props.product.title} product shot`}/> : null}
-        <h5>{this.props.product.title}</h5>
+        {product.images.length ? <img src={variantImage.src} alt={`${product.title} product shot`}/> : null}
+        <h5>{product.title}</h5>
         <span>${variant.price}</span>
         <br />
         {buildVariantOpts}
@@ -64,7 +65,7 @@ class Product extends Component {
           <input min="1" type="number" defaultValue={variantQuantity} onChange={this.handleQuantityChange}></input>
         </label>
 
-        <button onClick={() => this.props.addVariantToCart(variant.id, variantQuantity)}>Add to Cart</button>
+        <button onClick={() => this.props.addCartLineItem(variant.id, variantQuantity)}>Add to Cart</button>
       </div>
     )
   }

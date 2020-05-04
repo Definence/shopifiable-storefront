@@ -9,8 +9,8 @@ class Cart extends Component {
   render() {
     const line_items = this.props.checkout.lineItems.map((line_item) => (
       <LineItem
-        updateQuantityInCart={this.props.updateQuantityInCart}
-        removeLineItemInCart={this.props.removeLineItemInCart}
+        updateCartQuantity={this.props.updateCartQuantity}
+        removeCartLineItem={this.props.removeCartLineItem}
         key={line_item.id.toString()}
         line_item={line_item}
       />
@@ -21,7 +21,7 @@ class Cart extends Component {
         <header className="Cart__header">
           <h2>Your cart</h2>
           <button
-            onClick={this.props.handleCartClose}
+            onClick={this.props.closeCart}
             className="Cart__close">
             ×
           </button>

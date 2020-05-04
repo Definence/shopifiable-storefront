@@ -7,7 +7,7 @@ class Products extends PureComponent {
   render() {
     const products = this.props.products.map((product) => (
       <Product
-        addVariantToCart={this.props.addVariantToCart}
+        addCartLineItem={this.props.addCartLineItem}
         client={this.props.client}
         key={product.id.toString()}
         product={product}

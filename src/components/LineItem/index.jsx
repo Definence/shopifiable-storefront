@@ -4,17 +4,17 @@ import './styles.css'
 
 class LineItem extends Component {
   decrementQuantity = (lineItemId) => {
-    const { line_item, updateQuantityInCart } = this.props
+    const { line_item, updateCartQuantity } = this.props
     const updatedQuantity = line_item.quantity - 1
 
-    updateQuantityInCart(lineItemId, updatedQuantity)
+    updateCartQuantity(lineItemId, updatedQuantity)
   }
 
   incrementQuantity = (lineItemId) => {
-    const { line_item, updateQuantityInCart } = this.props
+    const { line_item, updateCartQuantity } = this.props
     const updatedQuantity = line_item.quantity + 1
 
-    updateQuantityInCart(lineItemId, updatedQuantity)
+    updateCartQuantity(lineItemId, updatedQuantity)
   }
 
   render() {
@@ -41,7 +41,7 @@ class LineItem extends Component {
             <span className="Line-item__price">
               $ { (this.props.line_item.quantity * this.props.line_item.variant.price).toFixed(2) }
             </span>
-            <button className="Line-item__remove" onClick={()=> this.props.removeLineItemInCart(this.props.line_item.id)}>×</button>
+            <button className="Line-item__remove" onClick={()=> this.props.removeCartLineItem(this.props.line_item.id)}>×</button>
           </div>
         </div>
       </li>
