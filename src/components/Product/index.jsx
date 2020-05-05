@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 import VariantSelector from '../VariantSelector'
-import './styles.css'
+import './styles.sass'
 
 class Product extends Component {
   constructor(props) {
@@ -40,7 +40,8 @@ class Product extends Component {
 
   render() {
     const { product } = this.props
-    const variantImage = this.state.selectedVariantImage || product.images[0]
+    const primaryImg = this.state.selectedVariantImage || product.images[0]
+    const secondaryImg = product.images[1]
     const variant = this.state.selectedVariant || product.variants[0]
     const variantQuantity = this.state.selectedVariantQuantity || 1
 
@@ -52,9 +53,18 @@ class Product extends Component {
       />
     ))
 
+    const buildImage = () => {
+      if (product.images.length) return (
+        <div className='crosfading'>
+          <img className='bottom' src={secondaryImg.src} alt={`${product.title} product shot`} />
+          <img className='top' src={primaryImg.src} alt={`${product.title} product shot`} />
+        </div>
+      )
+    }
+
     return (
-      <div className="Product">
-        {product.images.length ? <img src={variantImage.src} alt={`${product.title} product shot`}/> : null}
+      <div className='cell'>
+        {buildImage()}
         <h5>{product.title}</h5>
         <span>${variant.price}</span>
         <br />
@@ -62,7 +72,7 @@ class Product extends Component {
         <br />
         <label>
           Quantity
-          <input min="1" type="number" defaultValue={variantQuantity} onChange={this.handleQuantityChange}></input>
+          <input min='1' type='number' defaultValue={variantQuantity} onChange={this.handleQuantityChange}></input>
         </label>
 
         <button onClick={() => this.props.addCartLineItem(variant.id, variantQuantity)}>Add to Cart</button>

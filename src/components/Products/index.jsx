@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import Product from '../Product'
-import './styles.css'
+import './styles.sass'
 
 class Products extends PureComponent {
   render() {
@@ -15,7 +15,7 @@ class Products extends PureComponent {
     ))
 
     return (
-      <div className="Products">
+      <div className="grid">
         {products}
       </div>
     )

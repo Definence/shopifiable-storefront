@@ -6,7 +6,7 @@ import './styles.sass'
 import chevron from '../../assets/svg/chevron.svg'
 
 const navItems = [
-  { label: 'Wall', href: '#' },
+  { label: 'Wall', href: '/collections/wall' },
   { label: 'Shirts', href: '/collections/shirts', sublinks: [
     { label: 'Unisex', href: '/collections/unisex' },
     { label: 'Women', href: '/collections/women' },
@@ -16,7 +16,7 @@ const navItems = [
 
 const Navigation = ({ history }) => {
   const buildNav = navItems.map((c) => (
-    <div key={c.label} className='nav-item'>
+    <div key={c.href} className='nav-item'>
       <span className='nav-label' onClick={() => history.push(c.href)}>
         <Link to={c.href}>{c.label}</Link>
         {c.sublinks && <img className='chevron' src={chevron} alt='chevron'/>}
@@ -26,7 +26,7 @@ const Navigation = ({ history }) => {
         <div className='subcollection-container'>
           <div className='subcollection'>
             {c.sublinks.map((subLink) => (
-              <div className='sublink-item'>
+              <div key={subLink.href} className='sublink-item'>
                 <Link to={subLink.href}>{subLink.label}</Link>
               </div>
             ))}
