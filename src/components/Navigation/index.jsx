@@ -1,11 +1,38 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import './styles.sass'
+import chevron from '../../assets/svg/chevron.svg'
 
-const Navigation = ({ collections }) => {
-  const buildNav = collections.map((c) => (
-    <div key={c.title} className='nav-item'>
-      {c.title}
+const navItems = [
+  { label: 'Wall', href: '#' },
+  { label: 'Shirts', href: '/collections/shirts', sublinks: [
+    { label: 'Unisex', href: '/collections/unisex' },
+    { label: 'Women', href: '/collections/women' },
+    { label: 'Kids', href: '/collections/kids' },
+  ] },
+]
+
+const Navigation = ({ history }) => {
+  const buildNav = navItems.map((c) => (
+    <div key={c.label} className='nav-item'>
+      <span className='nav-label' onClick={() => history.push(c.href)}>
+        <Link to={c.href}>{c.label}</Link>
+        {c.sublinks && <img className='chevron' src={chevron} alt='chevron'/>}
+      </span>
+
+      {c.sublinks && (
+        <div className='subcollection-container'>
+          <div className='subcollection'>
+            {c.sublinks.map((subLink) => (
+              <div className='sublink-item'>
+                <Link to={subLink.href}>{subLink.label}</Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   ))
 
@@ -14,4 +41,4 @@ const Navigation = ({ collections }) => {
   )
 }
 
-export default Navigation
+export default withRouter(Navigation)

@@ -25,3 +25,11 @@ nav {
   min-height: 46px;
   display: flex;
 }
+
+a {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  font-weight: 400;
+  text-transform: uppercase;
+}
