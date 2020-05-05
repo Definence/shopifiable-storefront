@@ -8,6 +8,7 @@ import {
 import Navigation from './components/Navigation'
 import logo from './assets/images/factory43smokestack.png'
 import ProductsContainer from './containers/ProductsContainer'
+import ProductContainer from './containers/ProductContainer'
 import './App.scss'
 
 class App extends PureComponent {
@@ -20,6 +21,7 @@ class App extends PureComponent {
 
           <Switch>
             <Route path="/collections/:type" exact component={ProductsContainer} />
+            <Route path="/collections/products/:id" exact component={ProductContainer} />
           </Switch>
         </>
       </Router>

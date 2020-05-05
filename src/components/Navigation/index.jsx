@@ -37,7 +37,15 @@ const Navigation = ({ history }) => {
   ))
 
   return (
-    <nav>{buildNav}</nav>
+    <nav>
+      {buildNav}
+
+      <span className='cart-label'>
+        <h5>
+          CART
+        </h5>
+      </span>
+    </nav>
   )
 }
 

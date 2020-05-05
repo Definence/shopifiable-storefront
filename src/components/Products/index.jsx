@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 
-import Product from '../Product'
+import ProductsItem from '../ProductsItem'
 import './styles.sass'
 
 class Products extends PureComponent {
   render() {
     const products = this.props.products.map((product) => (
-      <Product
+      <ProductsItem
         addCartLineItem={this.props.addCartLineItem}
         client={this.props.client}
         key={product.id.toString()}
