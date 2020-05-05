@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import './styles.sass'
 import chevron from '../../assets/svg/chevron.svg'
+import { cartManageable } from '../../services/hocs/withCart'
 
 const navItems = [
   { label: 'Wall', href: '/collections/wall' },
@@ -14,7 +15,7 @@ const navItems = [
   ] },
 ]
 
-const Navigation = ({ history }) => {
+const Navigation = ({ history, changeCartOpened, checkout }) => {
   const buildNav = navItems.map((c) => (
     <div key={c.href} className='nav-item'>
       <span className='nav-label' onClick={() => history.push(c.href)}>
@@ -36,17 +37,19 @@ const Navigation = ({ history }) => {
     </div>
   ))
 
+  const buildcartCounter = () => {
+    if (checkout.lineItems.length > 0) return ` (${checkout.lineItems.length})`
+  }
+
   return (
     <nav>
       {buildNav}
 
       <span className='cart-label'>
-        <h5>
-          CART
-        </h5>
+        <h5 onClick={() => changeCartOpened(true)}>CART{buildcartCounter()}</h5>
       </span>
     </nav>
   )
 }
 
-export default withRouter(Navigation)
+export default withRouter(cartManageable(Navigation))

@@ -6,12 +6,7 @@ import './styles.sass'
 class Products extends PureComponent {
   render() {
     const products = this.props.products.map((product) => (
-      <ProductsItem
-        addCartLineItem={this.props.addCartLineItem}
-        client={this.props.client}
-        key={product.id.toString()}
-        product={product}
-      />
+      <ProductsItem key={product.id.toString()} product={product} />
     ))
 
     return (

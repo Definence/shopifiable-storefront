@@ -8,7 +8,6 @@
 
   #details
     width: 25%
-    vertical-align: top
 
   #image-container
     width: 50%
@@ -19,20 +18,22 @@
       max-height: 591px
       max-width: 591px
 
-  #variant-selection
-    vertical-align: top
+  #variant-selection-container
     width: 25%
+    display: flex
+    justify-content: center
 
-    #price
-      font-size: 84px
-      font-family: serif
-      font-weight: 300
+    #variant-selection
+      #price
+        font-size: 84px
+        font-family: serif
+        font-weight: 300
 
-    .variant-img-container
-      display: inline-block
-      cursor: pointer
-      margin-right: 22px
+      .variant-img-container
+        display: inline-block
+        cursor: pointer
+        margin-right: 22px
 
-      img
-        width: 90px
-        height: 90px
+        img
+          width: 90px
+          height: 90px

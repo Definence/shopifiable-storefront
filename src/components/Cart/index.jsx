@@ -1,10 +1,32 @@
-import React, {Component} from 'react'
+import React, { PureComponent } from 'react'
 
 import LineItem from '../LineItem'
+import { cartManageable } from '../../services/hocs/withCart'
 import './styles.css'
 
-class Cart extends Component {
+class Cart extends PureComponent {
   openCheckout = () => window.open(this.props.checkout.webUrl)
+
+  componentDidUpdate(prevProps) {
+    const cartGotOpened = !prevProps.isCartOpen && this.props.isCartOpen
+    const cartGotClosed = prevProps.isCartOpen && !this.props.isCartOpen
+
+    if (cartGotOpened) {
+      document.addEventListener('click', this.clickOutsideListener)
+    }
+
+    if (cartGotClosed) {
+      document.removeEventListener('click', this.clickOutsideListener);
+    }
+  }
+
+  clickOutsideListener = (e) => {
+    const clickedNode = e.target
+    const cartNode = document.getElementById('Cart')
+    const clickedOutside = !cartNode.contains(clickedNode)
+
+    if (clickedOutside) this.props.changeCartOpened(false)
+  }
 
   render() {
     const line_items = this.props.checkout.lineItems.map((line_item) => (
@@ -17,11 +39,11 @@ class Cart extends Component {
     ))
 
     return (
-      <div className={`Cart ${this.props.isCartOpen ? 'Cart--open' : ''}`}>
+      <div id='Cart' className={`Cart ${this.props.isCartOpen ? 'Cart--open' : ''}`}>
         <header className="Cart__header">
           <h2>Your cart</h2>
           <button
-            onClick={this.props.closeCart}
+            onClick={() => this.props.changeCartOpened(false)}
             className="Cart__close">
             ×
           </button>
@@ -55,4 +77,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart
+export default cartManageable(Cart)

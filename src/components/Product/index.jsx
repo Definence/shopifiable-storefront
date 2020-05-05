@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 
 import './styles.sass'
 import Select from '../atoms/Select'
+import { cartManageable } from '../../services/hocs/withCart'
 
-const Product = ({ title, descriptionHtml, images, variants, ...props }) => {
+const Product = ({ title, descriptionHtml, images, variants, addCartLineItem }) => {
   const [currentVariant, setVariant] = useState(variants[0])
   const [quantity, setQuantity] = useState(1)
   const image = currentVariant.image || images[0]
@@ -24,7 +25,7 @@ const Product = ({ title, descriptionHtml, images, variants, ...props }) => {
 
     return images.map((i) => (
       <div key={i} className='variant-img-container' onClick={() => onVariantImageClick(i)}>
-        <img src={i} alt='variant-image'/>
+        <img src={i} alt='variant' />
       </div>
     ))
   }
@@ -37,24 +38,26 @@ const Product = ({ title, descriptionHtml, images, variants, ...props }) => {
       </div>
 
       <div id='image-container'>
-        <img src={image.src} alt='product-image'/>
+        <img src={image.src} alt='product'/>
       </div>
 
-      <div id='variant-selection'>
-        <h1 id='price'>$ {currentVariant.price}</h1>
-        <label>Size</label>
-        <Select onChange={onChangeVariant} options={variantOpts} />
-        <br />
-        <label>Quantity</label>
-        <br />
-        <input onChange={({ target: { value } }) => setQuantity(value)} value={quantity} min='1' id='quantity' type='number' />
-        <button>ADD TO CART</button>
-        <br />
-        <br />
-        {buildImages()}
+      <div id='variant-selection-container'>
+        <div id='variant-selection'>
+          <h1 id='price'>$ {currentVariant.price}</h1>
+          <label>Size</label>
+          <Select onChange={onChangeVariant} options={variantOpts} />
+          <br />
+          <label>Quantity</label>
+          <br />
+          <input onChange={({ target: { value } }) => setQuantity(value)} value={quantity} min='1' id='quantity' type='number' />
+          <button onClick={() => addCartLineItem(currentVariant.id)}>ADD TO CART</button>
+          <br />
+          <br />
+          {buildImages()}
+        </div>
       </div>
     </div>
   )
 }
 
-export default Product
+export default cartManageable(Product)
