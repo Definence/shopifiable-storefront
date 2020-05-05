@@ -1,12 +1,12 @@
+## Live [DEMO](https://shopify-storefront.herokuapp.com/)
+
 ## Configuring
 
-Open `src/index.js` and update the `domain` and `storefrontAccessToken`:
+Create `.env` file with next variables:
 
-```js
-const client = Client.buildClient({
-  storefrontAccessToken: 'your-storefront-access-token',
-  domain: 'your-shop-name.myshopify.com',
-});
+```
+STOREFRONT_ACCESS_TOKEN = ***
+STOREFRONT_DOMAIN = ***
 ```
 
 ## Running
