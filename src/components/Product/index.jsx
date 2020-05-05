@@ -4,7 +4,6 @@ import './styles.sass'
 import Select from '../atoms/Select'
 
 const Product = ({ title, descriptionHtml, images, variants, ...props }) => {
-  console.log(variants)
   const [currentVariant, setVariant] = useState(variants[0])
   const [quantity, setQuantity] = useState(1)
   const image = currentVariant.image || images[0]
@@ -41,7 +40,7 @@ const Product = ({ title, descriptionHtml, images, variants, ...props }) => {
         <img src={image.src} alt='product-image'/>
       </div>
 
-      <div>
+      <div id='variant-selection'>
         <h1 id='price'>$ {currentVariant.price}</h1>
         <label>Size</label>
         <Select onChange={onChangeVariant} options={variantOpts} />
