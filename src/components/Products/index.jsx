@@ -9,9 +9,13 @@ class Products extends PureComponent {
       <ProductsItem key={product.id.toString()} product={product} />
     ))
 
+    const noContent = (
+      <h5>No products available</h5>
+    )
+
     return (
       <div className="grid">
-        {products}
+        {products.length > 0 ? products : noContent}
       </div>
     )
   }

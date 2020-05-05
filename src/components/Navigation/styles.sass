@@ -10,6 +10,10 @@ nav
     top: 50%
     transform: translateY(-50%)
     cursor: pointer
+    transition: all .8s ease
+
+    &:hover
+      font-size: 1.3rem
 
   .nav-item
     font-size: 14px
@@ -53,7 +57,7 @@ nav
       transform: rotate(180deg)
 
     &:hover .nav-label
-      font-size: 1rem
+      font-size: 1.2rem
 
     &:hover .subcollection
       max-height: 500px
