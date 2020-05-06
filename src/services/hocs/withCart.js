@@ -16,12 +16,27 @@ const withCart = (Component) => (props) => {
   const [checkout, changeCheckout] = useState({ lineItems: [] })
   const [isCartOpen, changeCartOpened] = useState(false)
 
-  useEffect(() => {
-    const initializeCheckout = async () => {
-      const checkout = await client.checkout.create()
-      changeCheckout(checkout)
+  const initializeCheckout = async () => {
+    const checkoutId = localStorage.getItem('checkoutId')
+    let checkout
+
+    if (checkoutId) {
+      try {
+        checkout = await client.checkout.fetch(checkoutId)
+      } catch {
+        localStorage.removeItem('checkoutId')
+      }
     }
 
+    if (!checkout) {
+      checkout = await client.checkout.create()
+      localStorage.setItem('checkoutId', checkout.id)
+    }
+
+    changeCheckout(checkout)
+  }
+
+  useEffect(() => {
     initializeCheckout()
   }, [])
 
