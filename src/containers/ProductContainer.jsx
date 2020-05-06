@@ -13,7 +13,7 @@ class ProductContainer extends React.PureComponent {
 
   async componentDidMount() {
     const { id } = this.props.match.params
-    const product = await ensureTimeout([client, ['product', 'fetch']], 1000, id)
+    const product = await ensureTimeout([client, ['product', 'fetch']], undefined, id)
 
     this.setState(() => ({ product }))
   }

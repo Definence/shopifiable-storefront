@@ -16,7 +16,7 @@ class ProductsContainer extends PureComponent {
   }
 
   async componentDidMount() {
-    const collections = await ensureTimeout([client, ['collection', 'fetchAllWithProducts']], 1000)
+    const collections = await ensureTimeout([client, ['collection', 'fetchAllWithProducts']], undefined)
     const products = this.currentProducts(collections)
 
     this.setState({ collections, products })

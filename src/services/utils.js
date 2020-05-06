@@ -2,7 +2,9 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const ensureTimeout = async(method, timeout, ...args) => {
+const defaultTimeout = 500
+
+export const ensureTimeout = async(method, timeout = defaultTimeout, ...args) => {
   const methodWithContext = Array.isArray(method)
   const methodWithoutContext = typeof method === 'function'
   const t0 = performance.now()
