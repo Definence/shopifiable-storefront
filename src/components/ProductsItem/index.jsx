@@ -18,6 +18,12 @@ class ProductsItem extends PureComponent {
     const primaryImg = this.state.selectedVariantImage || product.images[0]
     const secondaryImg = product.images[1]
     const variant = this.state.selectedVariant || product.variants[0]
+    const { compareAtPrice, price } = product.variants[0]
+
+    const buildCompareAtPrice = () => {
+      const isCompareRequired = compareAtPrice && compareAtPrice > price
+      if (isCompareRequired) return <span className='compare-price'>${compareAtPrice}</span>
+    }
 
     const buildImage = () => {
       if (product.images.length) return (
@@ -32,7 +38,7 @@ class ProductsItem extends PureComponent {
       <div className='cell' onClick={() => history.push(`products/${product.id}`)}>
         {buildImage()}
         <h6>{product.title}</h6>
-        <span className='price'>${variant.price}</span>
+        <span className='price'>{buildCompareAtPrice()} ${variant.price}</span>
       </div>
     )
   }
