@@ -42,6 +42,30 @@ const Product = ({ title, descriptionHtml, images, variants, addCartLineItem }) 
     )
   }
 
+  const onZoomedMouseMove = (e) => {
+    const imgContainer = document.getElementById('image-container')
+    const image = document.getElementById('zoomed')
+    const rect = imgContainer.getBoundingClientRect()
+    const offset = {
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX,
+    }
+    const cursorImageX = e.pageX - offset.left
+    const cursorImageY = e.pageY - offset.top
+    const cursorImageXFraction = cursorImageX / rect.width * 100
+    const cursorImageYFraction = cursorImageY / rect.height * 100
+    const transform = cursorImageXFraction + '% ' + cursorImageYFraction + '%'
+    const scale = imgContainer.getAttribute('scale')
+
+    image.style['transform-origin'] = transform
+    image.style.transform = `scale(${scale})`
+  }
+
+  const onMouseOut = (e) => {
+    const image = e.target
+    image.style.transform = `scale(1)`
+  }
+
   return (
     <div id='product'>
       <div id='details'>
@@ -49,8 +73,8 @@ const Product = ({ title, descriptionHtml, images, variants, addCartLineItem }) 
         <span dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
       </div>
 
-      <div id='image-container'>
-        <img src={image.src} alt='product'/>
+      <div id='image-container' scale='1.5' onMouseMove={onZoomedMouseMove} onMouseOut={onMouseOut}>
+        <div id="zoomed" style={{ backgroundImage: `url(${image.src})` }} />
       </div>
 
       <div id='variant-selection-container'>
