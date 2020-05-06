@@ -30,6 +30,18 @@ const Product = ({ title, descriptionHtml, images, variants, addCartLineItem }) 
     ))
   }
 
+  const buildComparePrice = () => {
+    const { price, compareAtPrice } = currentVariant
+    const isCompareRequired = compareAtPrice && compareAtPrice > price
+
+    if (isCompareRequired) return (
+      <h6 id='compare-price'>
+        was
+        <span> ${compareAtPrice}</span>
+      </h6>
+    )
+  }
+
   return (
     <div id='product'>
       <div id='details'>
@@ -44,6 +56,7 @@ const Product = ({ title, descriptionHtml, images, variants, addCartLineItem }) 
       <div id='variant-selection-container'>
         <div id='variant-selection'>
           <h1 id='price'>$ {currentVariant.price}</h1>
+          {buildComparePrice()}
           <label>Style</label>
           <Select onChange={onChangeVariant} options={variantOpts} />
           <br />
