@@ -1,0 +1,31 @@
+#spin-background
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 5
+  // background-color: rgba(14, 36, 62, 0.4)
+  background-color: rgba(160, 167, 177, 0.9)
+
+
+  #spin-container
+    transform: translate(-50%, -50%)
+    position: absolute
+    top: 50%
+    left: 50%
+
+    #spin
+      min-width: 70px
+      min-height: 70px
+      border: 6px solid #cacaca
+      border-radius: 50%
+      border-bottom-color: #e5e5e5
+      text-indent: -9999em
+      animation: spin 2s linear infinite
+
+      @keyframes spin
+        0%
+          transform: rotate(0deg)
+        100%
+          transform: rotate(360deg)

@@ -3,18 +3,20 @@ import { withRouter } from 'react-router-dom'
 
 import Products from '../components/Products'
 import client from '../services/storeFront'
+import Spinner from '../components/atoms/Spinner'
+import { ensureTimeout } from '../services/utils'
 
 class ProductsContainer extends PureComponent {
   constructor() {
     super()
     this.state = {
-      products: [],
+      products: null,
       collections: []
     }
   }
 
   async componentDidMount() {
-    const collections = await client.collection.fetchAllWithProducts()
+    const collections = await ensureTimeout([client, ['collection', 'fetchAllWithProducts']], 1000)
     const products = this.currentProducts(collections)
 
     this.setState({ collections, products })
@@ -39,7 +41,8 @@ class ProductsContainer extends PureComponent {
 
 
   render() {
-    return <Products products={this.state.products} />
+    const { products } = this.state
+    return products ? <Products products={products} /> : <Spinner />
   }
 }
 
