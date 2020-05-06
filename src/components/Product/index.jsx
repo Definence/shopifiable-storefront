@@ -44,7 +44,7 @@ const Product = ({ title, descriptionHtml, images, variants, addCartLineItem }) 
       <div id='variant-selection-container'>
         <div id='variant-selection'>
           <h1 id='price'>$ {currentVariant.price}</h1>
-          <label>Size</label>
+          <label>Style</label>
           <Select onChange={onChangeVariant} options={variantOpts} />
           <br />
           <label>Quantity</label>
