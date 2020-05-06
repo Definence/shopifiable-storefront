@@ -13,21 +13,25 @@ export const ensureTimeout = async(method, timeout, ...args) => {
   } else if (methodWithContext) {
     const sendErrorMsg = 'Send is not valid for the context. A String or Array of strings is required'
     const context = method[0]
-    let send
+    let func = context
+    let methods = []
 
     if (typeof context !== 'object') return console.error('Context is not valid')
 
     if (typeof method[1] === 'string') {
-      send = [method[1]]
+      methods.push(method[1])
     } else if (Array.isArray(method[1])) {
-      send = method[1]
+      methods = method[1]
     }
 
-    if (!Array.isArray(send) || send.length === 0) return console.error(sendErrorMsg)
-    send.forEach((key) => { if (typeof key !== 'string') console.error(sendErrorMsg) })
+    if (!Array.isArray(methods) || methods.length === 0) return console.error(sendErrorMsg)
 
-    if (send.length === 1) result = await context[send[0]](...args)
-    else if (send.length === 2) result = await context[send[0]][send[1]](...args)
+    methods.forEach((key) => {
+      if (typeof key !== 'string') console.error(sendErrorMsg)
+      func = func[key]
+    })
+
+    result = await func.call(context, ...args)
   }
 
   const t1 = performance.now()
