@@ -2,7 +2,7 @@
 
 ## Configuring
 
-Create `.env` file with next variables:
+Create `.env` file with next variables from [here](https://docs.google.com/document/d/1-fEGHHhOyQCYcoeRc7xpJ6A5CUm18rS8uzkKhkF1Qe0/edit):
 
 ```
 STOREFRONT_ACCESS_TOKEN = ***
